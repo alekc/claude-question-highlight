@@ -10,6 +10,13 @@ a Stop hook adds after the answer. This mod highlights them in two places:
   questions once the turn ends, and stays until you send your next prompt or
   press Dismiss.
 
+![A question boxed in the transcript, repeated in the band above the prompt](docs/question-box.png)
+
+The band stays put while you scroll back through the transcript, so the
+question is still in front of you when you come back to answer:
+
+![The band still showing the question with the transcript scrolled up](docs/band-scrolled.png)
+
 ## Install
 
 At the prompt of a terminal session:
@@ -28,6 +35,26 @@ claude plugin install question-highlight --marketplace alekc/claude-question-hig
 In the desktop app, where `/plugin` does not run: click + next to the prompt
 box, then Plugins, Add marketplace with `alekc/claude-question-highlight`, then
 Add plugin.
+
+Needs a Claude Code build with mods enabled; built and tested on 2.1.318.
+
+## Update
+
+From a shell, refresh the marketplace, then update the plugin:
+
+```
+claude plugin marketplace update claude-question-highlight
+claude plugin update question-highlight@claude-question-highlight
+```
+
+Restart Claude Code afterwards: a running session keeps the version it started
+with.
+
+## Uninstall
+
+```
+claude plugin uninstall question-highlight@claude-question-highlight
+```
 
 ## What counts as a question
 
