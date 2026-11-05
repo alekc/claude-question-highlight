@@ -1,0 +1,12 @@
+{
+  "name": "claude-question-highlight",
+  "owner": { "name": "Alexander Chernov" },
+  "description": "question-highlight: makes the questions Claude asks you stand out in the transcript and above the prompt",
+  "plugins": [
+    {
+      "name": "question-highlight",
+      "source": "./",
+      "description": "Boxes the questions Claude asks you in a coloured border and pins the latest ones above the prompt until you answer"
+    }
+  ]
+}

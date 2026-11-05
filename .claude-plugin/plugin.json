@@ -1,0 +1,11 @@
+{
+  "name": "question-highlight",
+  "version": "0.1.0",
+  "description": "Boxes the questions Claude asks you in a coloured border and pins the latest ones above the prompt until you answer",
+  "author": { "name": "Alexander Chernov" },
+  "license": "MIT",
+  "homepage": "https://github.com/alekc/claude-question-highlight",
+  "repository": "https://github.com/alekc/claude-question-highlight",
+  "keywords": ["mod", "questions", "highlight", "approval"],
+  "types": "./types/index.d.ts"
+}
