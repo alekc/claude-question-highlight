@@ -17,6 +17,11 @@ question is still in front of you when you come back to answer:
 
 ![The band still showing the question with the transcript scrolled up](docs/band-scrolled.png)
 
+Dismiss clears the current questions only; the band comes back with the next
+one. The `[-]` at the band's right edge, or ctrl+x ctrl+a, is Claude Code's own
+collapse instead: it hides the band for every later question too, until you
+press ctrl+x ctrl+a again.
+
 ## Install
 
 At the prompt of a terminal session:
