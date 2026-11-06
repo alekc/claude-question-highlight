@@ -8,35 +8,42 @@ const pending = atom({ plugin: 'question-highlight', key: 'pending' } as const, 
 const COLOR = 'warning'
 
 export const register: Register = on => {
-  // Main-loop reply text of the current turn, so a question asked before a
-  // Stop hook blocked and the turn carried on is not lost.
-  let buf = ''
+  // Main-loop reply text of each step of the current turn. The latest step that
+  // asks wins: a question restated after a Stop hook replaces the earlier one,
+  // and one asked before the block survives steps that ask nothing.
+  let steps: string[] = []
 
   on('prompt.submit', async ($, e, next) => {
-    buf = ''
+    steps = []
     await update($, pending, () => [])
     return next(e)
   })
 
   on('turn.step', async function* ($, e, next) {
     if (e.agentId) return yield* next(e)
+    let text = ''
     let block = -1
-    for await (const c of next(e)) {
-      if (c.kind === 'text') {
-        if (c.index !== block) {
-          buf += '\n\n'
-          block = c.index
+    try {
+      for await (const c of next(e)) {
+        if (c.kind === 'text') {
+          if (c.index !== block) {
+            text += '\n\n'
+            block = c.index
+          }
+          text += c.text
         }
-        buf += c.text
+        yield c
       }
-      yield c
+    } finally {
+      steps.push(text)
     }
   })
 
   on('turn.complete', async ($, e, next) => {
     if (e.agentId) return next(e)
-    const asked = questionsOf(buf.trim() ? buf : e.answer)
-    buf = ''
+    const texts = steps.some(s => s.trim()) ? steps : [e.answer]
+    steps = []
+    const asked = texts.map(questionsOf).findLast(q => q.length > 0) ?? []
     if (asked.length > 0) await update($, pending, () => asked)
     return next(e)
   })

@@ -8,7 +8,8 @@ a Stop hook adds after the answer. This mod highlights them in two places:
   the theme's `warning` colour.
 - Above the prompt, a band titled "Waiting on your answer" repeats the latest
   questions once the turn ends, and stays until you send your next prompt or
-  press Dismiss.
+  press Dismiss. When a Stop hook makes Claude ask again, only the restated
+  question is kept.
 
 ![A question boxed in the transcript, repeated in the band above the prompt](docs/question-box.png)
 
